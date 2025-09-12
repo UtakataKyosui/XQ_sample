@@ -1,11 +1,12 @@
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-   tonic_prost_build::configure()
+    let proto_base_path = "../proto/xq";
+    tonic_prost_build::configure()
         .build_server(true)
-		.build_client(false)
-		.out_dir("src")
+        .build_client(false)
+        .out_dir("src")
         .compile_protos(
-            &["../proto/hello.proto"],
-            &["../proto"],
+            &[format!("{}/core.proto", proto_base_path)],
+            &[format!("{}", proto_base_path)],
         )?;
-   Ok(())
+    Ok(())
 }
